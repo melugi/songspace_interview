@@ -15,41 +15,34 @@ To install dependencies run `composer install`, migrations are located in the mi
 <tr>
 <td>
 
-|Users  |
-:-------|
-|name   |
-|email  |
+|User    |
+:--------|
+|name    |
+|email   |
+|catalogs|
 
 </td>
 
 <td>
 
-|Catalogs                  |
+|Catalog                   |
 :--------------------------|
-|name                      |
-|user_id REF Users(id)     |
+|title                     |
+|user                      |
+|songs                     |
 
 </td>
 
 <td>
 
-|Songs |
-:------|
-|title |
-|artist|
-|album |
+|Song    |
+:--------|
+|title   |
+|artist  |
+|album   |
+|catalogs|
 
 </td>
-
-<td>
-
-|CatalogSongs              |
-:--------------------------|
-|catalog_id REF Catalog(id)|
-|song_id REF Catalog(id)   |
-
-</td>
-
 </tr>
 </table>
 
