@@ -1,3 +1,28 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+create_user:
+  path: /user
+  controller: App/Controller/UserController::CreateUser
+  methods: POST
+
+create_catalog:
+  path: /catalog
+  controller: App/Controller/CatalogController::CreateCatalog
+  methods: POST
+
+list_songs:
+  path: /catalog/{catalogId}/songs
+  controller: App/Controller/CatalogController::ListSongs
+  methods: GET
+
+append_song_to_catalog:
+  path: /catalog/{catalogId}/songs
+  controller: App/Controller/CatalogController::AppendSong
+  methods: POST
+
+remove_song_from_catalog:
+  path: /catalog/{catalogId}/songs/{songId}
+  controller: App/Controller/CatalogController::RemoveSong
+  methods: DELETE
