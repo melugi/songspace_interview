@@ -39,6 +39,11 @@ class Song
      */
     private $catalog;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $songFileName;
+
     public function __construct()
     {
         $this->catalog = new ArrayCollection();
@@ -105,6 +110,18 @@ class Song
     public function removeCatalog(Catalog $catalog): self
     {
         $this->catalog->removeElement($catalog);
+
+        return $this;
+    }
+
+    public function getSongFileName(): ?string
+    {
+        return $this->songFileName;
+    }
+
+    public function setSongFileName(string $songFileName): self
+    {
+        $this->songFileName = $songFileName;
 
         return $this;
     }
