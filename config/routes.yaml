@@ -23,3 +23,28 @@ delete_user:
   controller: App\Controller\UserController::delete
   methods: POST
 
+index_catalog:
+  path: /catalog/
+  controller: App\Controller\CatalogController::index
+  methods: GET
+
+new_catalog:
+  path: /catalog/new
+  controller: App\Controller\CatalogController::new
+  methods: GET|POST
+
+show_catalog:
+  path: /catalog/{id}
+  controller: App\Controller\CatalogController::show
+  methods: GET
+
+edit_catalog:
+  path: /catalog/{id}/edit
+  controller: App\Controller\CatalogController::edit
+  methods: GET|POST
+
+delete_catalog:
+  path: /catalog/{id}
+  controller: App\Controller\CatalogController::delete
+  methods: POST
+
