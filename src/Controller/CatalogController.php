@@ -48,8 +48,10 @@ class CatalogController extends AbstractController
     public function show(string $id): Response
     {
         $catalog = $this->catalogRepository->find($id);
+        $songs = $catalog->getSongs();
         return $this->render('catalog/show.html.twig', [
             'catalog' => $catalog,
+            'songs' => $songs
         ]);
     }
 

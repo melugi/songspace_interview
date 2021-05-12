@@ -23,4 +23,36 @@
     <a href="{{ path('edit_catalog', {'id': catalog.id}) }}">edit</a>
 
     {{ include('catalog/_delete_form.html.twig') }}
+
+    <h2> {{ catalog.title }}'s Tracks </h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for song in songs %}
+            <tr>
+                <td>{{ song.id }}</td>
+                <td>{{ song.title }}</td>
+                <td>{{ song.artist }}</td>
+                <td>{{ song.album }}</td>
+                <td>
+                    <a href="{{ path('show_song', {'id': song.id}) }}">show</a>
+                    <a href="{{ path('edit_song', {'id': song.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
