@@ -39,6 +39,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    # TODO: Viewing a user should also show all their catalogs and songs
     public function show(string $id): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
