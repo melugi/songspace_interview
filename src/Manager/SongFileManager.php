@@ -33,9 +33,14 @@ class SongFileManager
         return $songFileName;
     }
 
-    public function delete(string $fileName)
+    public function delete(string $fileName): bool
     {
-
+        try {
+            return unlink($this->targetDirectory . $fileName);
+        } catch (FileException $e) {
+            # Just rethrowing for now
+            throw $e;
+        }
     }
 }
 
