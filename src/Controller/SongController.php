@@ -28,7 +28,6 @@ class SongController extends AbstractController
         ]);
     }
 
-    # TODO: This doesn't support file upload yet
     public function new(Request $request): Response
     {
         $song = new Song();
@@ -71,6 +70,18 @@ class SongController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $songFile = $form->get('file')->getData();
+
+            # If a new song is uploaded, delete the old one and upload the new one.
+            if ($songFile) {
+                $songFileName = $song->getSongFileName();
+
+                if ($this->songFileManager->delete($songFileName)) {
+                    $songFileName = $this->songFileManager->upload($songFile);
+                    $song->setSongFileName($songFileName);
+                }
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('index_song');
@@ -85,10 +96,14 @@ class SongController extends AbstractController
     public function delete(Request $request, string $id): Response
     {
         $song = $this->songRepository->find($id);
+        $songFileName = $song->getSongFileName();
+
         if ($this->isCsrfTokenValid('delete'.$song->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($song);
             $entityManager->flush();
+
+            $this->songFileManager->delete($songFileName);
         }
 
         return $this->redirectToRoute('index_song');
