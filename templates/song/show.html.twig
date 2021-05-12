@@ -30,5 +30,7 @@
 
     <a href="{{ path('edit_song', {'id': song.id}) }}">edit</a>
 
+    <a href="{{ asset('upload/song/' ~ song.songFileName) }}">Download Song</a>
+
     {{ include('song/_delete_form.html.twig') }}
 {% endblock %}
