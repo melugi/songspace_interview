@@ -48,3 +48,28 @@ delete_catalog:
   controller: App\Controller\CatalogController::delete
   methods: POST
 
+index_song:
+  path: /song/
+  controller: App\Controller\SongController::index
+  methods: GET
+
+new_song:
+  path: /song/new
+  controller: App\Controller\SongController::new
+  methods: GET|POST
+
+show_song:
+  path: /song/{id}
+  controller: App\Controller\SongController::show
+  methods: GET
+
+edit_song:
+  path: /song/{id}/edit
+  controller: App\Controller\SongController::edit
+  methods: GET|POST
+
+delete_song:
+  path: /song/{id}
+  controller: App\Controller\SongController::delete
+  methods: POST
+
