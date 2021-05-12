@@ -11,10 +11,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SongController extends AbstractController
 {
-    public function index(SongRepository $songRepository): Response
+    protected SongRepository $songRepository;
+
+    public function __construct(SongRepository $songRepository)
+    {
+        $this->songRepository = $songRepository;
+    }
+
+    public function index(): Response
     {
         return $this->render('song/index.html.twig', [
-            'songs' => $songRepository->findAll(),
+            'songs' => $this->songRepository->findAll(),
         ]);
     }
 
@@ -39,15 +46,17 @@ class SongController extends AbstractController
         ]);
     }
 
-    public function show(Song $song): Response
+    public function show(string $id): Response
     {
+        $song = $this->songRepository->find($id);
         return $this->render('song/show.html.twig', [
             'song' => $song,
         ]);
     }
 
-    public function edit(Request $request, Song $song): Response
+    public function edit(Request $request, string $id): Response
     {
+        $song = $this->songRepository->find($id);
         $form = $this->createForm(SongType::class, $song);
         $form->handleRequest($request);
 
@@ -63,8 +72,9 @@ class SongController extends AbstractController
         ]);
     }
 
-    public function delete(Request $request, Song $song): Response
+    public function delete(Request $request, string $id): Response
     {
+        $song = $this->songRepository->find($id);
         if ($this->isCsrfTokenValid('delete'.$song->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($song);
