@@ -27,4 +27,31 @@
     <a href="{{ path('edit_user', {'id': user.id}) }}">edit</a>
 
     {{ include('user/_delete_form.html.twig') }}
+
+    <h2> {{ user.name }}'s Catalogs </h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for catalog in catalogs %}
+            <tr>
+                <td>{{ catalog.id }}</td>
+                <td>{{ catalog.title }}</td>
+                <td>
+                    <a href="{{ path('show_catalog', {'id': catalog.id}) }}">show</a>
+                    <a href="{{ path('edit_catalog', {'id': catalog.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

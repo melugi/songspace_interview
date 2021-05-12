@@ -45,12 +45,13 @@ class UserController extends AbstractController
         ]);
     }
 
-    # TODO: Viewing a user should also show all their catalogs and songs
     public function show(string $id): Response
     {
         $user = $this->userRepository->find($id);
+        $catalogs = $user->getCatalogs();
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'catalogs' => $catalogs
         ]);
     }
 
