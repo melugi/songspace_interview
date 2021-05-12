@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Song;
 use App\Form\SongType;
 use App\Repository\SongRepository;
+use App\Manager\SongFileManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,10 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 class SongController extends AbstractController
 {
     protected SongRepository $songRepository;
+    protected SongFileManager $songFileManager;
 
-    public function __construct(SongRepository $songRepository)
+    public function __construct(SongRepository $songRepository, SongFileManager $songFileManager)
     {
         $this->songRepository = $songRepository;
+        $this->songFileManager = $songFileManager;
     }
 
     public function index(): Response
@@ -33,6 +36,13 @@ class SongController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $songFile = $form->get('file')->getData();
+
+            if ($songFile) {
+                $songFileName = $this->songFileManager->upload($songFile);
+                $song->setSongFileName($songFileName);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($song);
             $entityManager->flush();

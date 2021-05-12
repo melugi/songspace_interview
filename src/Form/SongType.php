@@ -20,7 +20,7 @@ class SongType extends AbstractType
             ->add('catalog')
             ->add('file', FileType::class, [
                 'label' => 'Audio File',
-                'required' => true,
+                'required' => false,
                 'mapped' => false,
                 'constraints' => [
                     new File([
